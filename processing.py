@@ -7,7 +7,7 @@ def extract_evolution_data(file_name):
     import pandas as pd
     import os
 
-    os.chdir('c:\\precourse\project')
+    os.chdir('c:\\precourse\project\project_github\data')
     years = ['14', '15', '16', '17']
     files_name = [str(file_name) + '_' + x for x in years]
 
