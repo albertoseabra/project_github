@@ -19,3 +19,6 @@ form the blog http://blog.journeyofanalytics.com/top-us-cities-with-highest-rent
 Will also try to compare the current prices of different barrios using a library yet to be decided.
 The objective is to create a visualization like for example:  
 http://www.elperiodico.com/es/graficos/barcelona/alquiler-pisos-barcelona-precio-barrio-15090/
+
+
+The geographical information of the barrios use the format JSON, stored in the file barris_geo.json

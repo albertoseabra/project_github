@@ -46,6 +46,10 @@ def extract_evolution_data(file_name):
 
 def comparison_data():
     import pandas as pd
+    import os
+
+    os.chdir('c:\\precourse\project\project_github\data')
+
     average_area = pd.read_csv('average_area_17.csv', usecols=[0, 1, 2])
     average_rent = pd.read_csv('average_rent_17.csv', usecols=[2])
     average_rent_per_m2 = pd.read_csv('average_rent_per_m2_17.csv', usecols=[2])
@@ -60,10 +64,12 @@ def comparison_data():
 
     return comparison
 
+# TODO: CHECK WHATS UP WITH THE FILE AVERAGE RENT
 # extract_evolution_data('average_rent')
 # extract_evolution_data('average_area')
 # extract_evolution_data('average_rent_per_m2')
-# extract_evolution_data('average_area')
+# TODO: CHECK WHY NUMBER OF CONTRACTS ISNT WORKING, NO COLUMNS TO MERGE ERROR
+# extract_evolution_data('number_contracts')
 
 # data = comparison_data()
 
