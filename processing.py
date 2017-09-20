@@ -11,10 +11,21 @@ def extract_evolution_data(file_name):
     years = ['14', '15', '16', '17']
     files_name = [str(file_name) + '_' + x for x in years]
 
-    # going to read just the columns that matter to make it easier to re-use and it's cleaner
-    first_year = pd.read_csv(str(files_name[0]) + '.csv', encoding='latin1', na_values='n.d.', usecols=[0, 1, 2, 3, 4, 5])
+    # some files of 2014 and 2015 have a first column that doesnt interest us and creates a conflict when i try to merge
+    # will open the file, if it has the wrong first column will open again ignoring the first column
 
-    second_year = pd.read_csv(str(files_name[1]) + '.csv', encoding='latin1', na_values='n.d.', usecols=[0, 1, 2, 3, 4, 5])
+    first_year = pd.read_csv(str(files_name[0]) + '.csv', encoding='latin1', na_values='n.d.',
+                             usecols=[0, 1, 2, 3, 4, 5])
+    if first_year.columns[0] != 'Dte.':
+        first_year = pd.read_csv(str(files_name[0]) + '.csv', encoding='latin1', skiprows=[0],
+                                 na_values='n.d.', usecols=[0, 1, 2, 3, 4, 5])
+
+    second_year = pd.read_csv(str(files_name[1]) + '.csv', encoding='latin1', na_values='n.d.',
+                              usecols=[0, 1, 2, 3, 4, 5])
+
+    if second_year.columns[0] != 'Dte.':
+        second_year = pd.read_csv(str(files_name[1]) + '.csv', encoding='latin1', skiprows=[0],
+                                  na_values='n.d.', usecols=[0, 1, 2, 3, 4, 5])
 
     # After 2016 we have a new row with the average of the city, all barrios together
     # its easier if we ignore that row when we open the file or it will give us trouble when trying to merge the data sets
@@ -30,8 +41,10 @@ def extract_evolution_data(file_name):
     fourth_year = pd.read_csv(str(files_name[2]) + '.csv', skiprows=[1], usecols=[0, 1, 2])
     fourth_year.columns = (['Dte.', 'Barris', '1r Trimestre 2017'])
 
-    # for some reason we lose 6 rows trying to merge everything, the problem shows up merging between 2015 and 2016
-    first_half = first_year.merge(second_year)
+    # we lose rows trying to merge everything, the problem shows up merging between 2015 and 2016
+    # same problem also shows up merging 2014 and 2015 for some files, will use concat instead
+    second_year.drop(['Dte.', 'Barris'], axis=1, inplace=True)
+    first_half = pd.concat([first_year, second_year], axis=1)
     second_half = third_year.merge(fourth_year)
 
     # will get rid of the first two columns in the second data set, will only keep the columns with the trimesters
@@ -64,11 +77,9 @@ def comparison_data():
 
     return comparison
 
-# TODO: CHECK WHATS UP WITH THE FILE AVERAGE RENT
 # extract_evolution_data('average_rent')
 # extract_evolution_data('average_area')
 # extract_evolution_data('average_rent_per_m2')
-# TODO: CHECK WHY NUMBER OF CONTRACTS ISNT WORKING, NO COLUMNS TO MERGE ERROR
 # extract_evolution_data('number_contracts')
 
 # data = comparison_data()
