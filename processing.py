@@ -73,7 +73,7 @@ def comparison_data():
     columns = ['Dte.', 'Barris', 'average_area', 'average_rent', 'average_rent_per_m2', 'number_contracts']
     comparison.columns = columns
 
-    comparison.to_csv('comparison_data.csv', encoding='latin1')
+    comparison.to_csv('comparison_data.csv')
 
     return comparison
 
