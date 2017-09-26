@@ -1,6 +1,9 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 import folium
 import os
+
 
 os.chdir('c:\\precourse\project\project_github\data')
 
@@ -20,11 +23,16 @@ columns = ['average_area', 'average_rent', 'average_rent_per_m2', 'number_contra
 legends = ['AVERAGE AREA', 'AVERAGE RENT', 'AVERAGE RENT PER M2', 'NUMBER OF NEW CONTRACTS']
 colors = ['RdPu', 'YlGn', 'OrRd', 'YlOrRd']
 
-for i in range(4):
-    map = folium.Map(location=[41.41, 2.15], zoom_start=13)
+# for i in range(4):
+#     map = folium.Map(location=[41.41, 2.15], zoom_start=13)
+#
+#     map.choropleth(geo_data='barris_geo.json', name='choropleth', data=data_file, columns=['Barris', columns[i]],
+#                    key_on='feature.properties.N_Barri', fill_color=colors[i], fill_opacity=0.7, line_opacity=0.4,
+#                    legend_name=legends[i], highlight= True)
+#
+#     map.save(str(columns[i])+'.html')
 
-    map.choropleth(geo_data='barris_geo.json', name='choropleth', data=data_file, columns=['Barris', columns[i]],
-                   key_on='feature.properties.N_Barri', fill_color=colors[i], fill_opacity=0.7, line_opacity=0.4,
-                   legend_name=legends[i], highlight= True)
+# compare = sns.barplot(x='Barris', y='average_rent', data=data_file)
+# for item in compare.get_xticklabels():
+#     item.set_rotation(90)
 
-    map.save(str(columns[i])+'.html')

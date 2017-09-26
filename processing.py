@@ -115,3 +115,7 @@ def comparison_csv():
 
 # comparison = comparison_data()
 # data = comparison_csv()
+
+# TODO: calculate the variation in % for each evolution file
+
+
