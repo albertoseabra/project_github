@@ -32,7 +32,7 @@ colors = ['RdPu', 'YlGn', 'OrRd', 'YlOrRd']
 #
 #     map.save(str(columns[i])+'.html')
 
-# compare = sns.barplot(x='Barris', y='average_rent', data=data_file)
-# for item in compare.get_xticklabels():
-#     item.set_rotation(90)
+compare = sns.barplot(x='Barris', y='average_rent', data=data_file)
+for item in compare.get_xticklabels():
+    item.set_rotation(90)
 
