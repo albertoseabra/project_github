@@ -22,3 +22,13 @@ http://www.elperiodico.com/es/graficos/barcelona/alquiler-pisos-barcelona-precio
 
 
 The geographical information of the barrios use the format JSON, stored in the file barris_geo.json
+
+
+
+
+Credits:  
+for the Geodata of Barcelona:
+https://martingonzalez.net/choropleth-maps-qgis-d3-spam   
+to learn about the library Folium:
+http://python-visualization.github.io/folium/docs-master/quickstart.html
+
