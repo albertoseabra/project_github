@@ -2,6 +2,9 @@ import pandas as pd
 import os
 import csv
 
+os.chdir('c:\\precourse\project\project_github\data')
+
+
 def extract_evolution_data(file_name):
     """
     extracts the data for the four years(2014 until 2017), cleans, merges and saves for a csv file
