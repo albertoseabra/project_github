@@ -1,7 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import folium
 import os
 import re
 
@@ -9,12 +6,8 @@ import re
 os.chdir('c:\\precourse\project\project_github\data')
 
 
-# func = lambda x: str(x).split(' ', 1)[1]
-# area_evolution['Barris'] = area_evolution.Barris.apply(func)
-
-
 def evolution_column(file):
-    data = pd.read_csv(str(file) + '.csv', encoding='latin1', skiprows=[1], na_values='nd', decimal=',')
+    data = pd.read_csv(str(file) + '.csv', encoding='latin1', na_values='nd', decimal=',')
 
     data.drop(['Unnamed: 0', 'Dte.'], inplace=True, axis=1)
 
@@ -52,14 +45,14 @@ def evolution_column(file):
     data.to_csv(str(file)+'2.csv')
     return data
 
-# WORKS FOR THESE 3 DATASETS:
-# contracts = evolution_column('number_contracts')
-# area = evolution_column('average_area')
-# rent = evolution_column('average_rent')
+
+# WORKS FOR THESE 2 DATASETS:
+contracts = evolution_column('number_contracts')
+area = evolution_column('average_area')
 
 
 # FOR AVERAGE RENT PER M2:
-rent_m2 = pd.read_csv('average_rent_per_m2.csv', encoding='latin1', skiprows=[1], na_values='nd', decimal=',')
+rent_m2 = pd.read_csv('average_rent_per_m2.csv', encoding='latin1', na_values='nd', decimal=',')
 
 rent_m2.drop(['Unnamed: 0', 'Dte.'], inplace=True, axis=1)
 
@@ -81,3 +74,36 @@ rent_m2['Evolution'] = (rent_m2['1st Tri 2017'].astype('float') - rent_m2['1st T
                             / rent_m2['1st Tri 2014'].astype('float') * 100
 
 rent_m2.to_csv('average_rent_per_m22.csv')
+
+# FOR AVERAGE RENT:
+rent = pd.read_csv('average_rent.csv', encoding='latin1', na_values='nd', decimal=',')
+rent.drop(['Unnamed: 0', 'Dte.'], inplace=True, axis=1)
+
+columns = ['Barris', '1st Tri 2014', '2nd Tri 2014', '3rd Tri 2014', '4th Tri 2014', '1st Tri 2015',
+           '2nd Tri 2015', '3rd Tri 2015', '4th Tri 2015', '1st Tri 2016', '2nd Tri 2016',
+           '3rd Tri 2016', '4th Tri 2016', '1st Tri 2017']
+rent.columns = columns
+
+
+# replace '.' for ',', but now only for 2014
+repl2 = lambda x: re.sub(r'\.', '', str(x), count=1)
+rent['1st Tri 2014'] = rent['1st Tri 2014'].apply(repl2)
+# need to replace ',' for '.' but only in the 2014 column, 2017 works fine without changing
+repl = lambda x: re.sub(r',', '.', str(x))
+rent['1st Tri 2014'] = rent['1st Tri 2014'].apply(repl)
+
+rent['Evolution'] = (rent['1st Tri 2017'].astype('float') - rent['1st Tri 2014'].astype('float')) \
+                            / rent['1st Tri 2014'].astype('float') * 100
+
+rent_m2.to_csv('average_rent2.csv')
+
+
+# will append the evolution columns to the comparison data file
+comparison = pd.read_csv('comparison_data.csv', encoding='latin1', skiprows=[1])
+
+
+
+
+
+# pd.concat([comparison, area.Evolution, rent_m2.Evolution, contracts.Evolution], axis=1)
+
