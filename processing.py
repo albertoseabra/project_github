@@ -79,7 +79,7 @@ def comparison_data():
 
 # extract_evolution_data('average_rent')
 # extract_evolution_data('average_area')
-# extract_evolution_data('average_rent_per_m2')
+extract_evolution_data('average_rent_per_m2')
 # extract_evolution_data('number_contracts')
 
 # data = comparison_data()
@@ -116,6 +116,5 @@ def comparison_csv():
 # comparison = comparison_data()
 # data = comparison_csv()
 
-# TODO: calculate the variation in % for each evolution file
 
 

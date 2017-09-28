@@ -44,9 +44,6 @@ colors = ['RdPu', 'YlGn', 'OrRd', 'YlOrRd']
 
 
 
-
-
-
 # OTHER STUFF DONT LOOK :P
 '''
 data_file.drop(['Unnamed: 0', 'Dte.'], inplace=True, axis=1)
