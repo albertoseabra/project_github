@@ -76,7 +76,7 @@ rent_m2['Evolution'] = (rent_m2['1st Tri 2017'].astype('float') - rent_m2['1st T
 rent_m2.to_csv('average_rent_per_m22.csv')
 
 # FOR AVERAGE RENT:
-rent = pd.read_csv('average_rent.csv', encoding='latin1', na_values='nd', decimal=',')
+rent = pd.read_csv('average_rent.csv', encoding='latin1', na_values='nd', decimal=',', skiprows=[1])
 rent.drop(['Unnamed: 0', 'Dte.'], inplace=True, axis=1)
 
 columns = ['Barris', '1st Tri 2014', '2nd Tri 2014', '3rd Tri 2014', '4th Tri 2014', '1st Tri 2015',
@@ -95,15 +95,18 @@ rent['1st Tri 2014'] = rent['1st Tri 2014'].apply(repl)
 rent['Evolution'] = (rent['1st Tri 2017'].astype('float') - rent['1st Tri 2014'].astype('float')) \
                             / rent['1st Tri 2014'].astype('float') * 100
 
-rent_m2.to_csv('average_rent2.csv')
+rent.to_csv('average_rent2.csv')
 
 
 # will append the evolution columns to the comparison data file
 comparison = pd.read_csv('comparison_data.csv', encoding='latin1', skiprows=[1])
 
 
+final = pd.concat([comparison, area.Evolution, rent_m2.Evolution, contracts.Evolution, rent.Evolution], axis=1)
+columns = ['Unnamed: 0', 'Dte.', 'Barris', 'average_area', 'average_rent', 'average_rent_per_m2',
+           'number_contracts', 'area_evol', 'rent_m2_evol', 'contracts_evol', 'rent_evol']
 
+final.columns = columns
 
-
-# pd.concat([comparison, area.Evolution, rent_m2.Evolution, contracts.Evolution], axis=1)
+final.to_csv('comparison2.csv')
 

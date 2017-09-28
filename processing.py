@@ -79,7 +79,6 @@ def comparison_data():
 
     return comparison
 
-# extract_evolution_data('average_rent')
 # extract_evolution_data('average_area')
 # extract_evolution_data('average_rent_per_m2')
 # extract_evolution_data('number_contracts')
