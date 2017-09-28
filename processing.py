@@ -38,7 +38,7 @@ def extract_evolution_data(file_name):
     third_year.columns = columns
 
     # for 2017 we only have data for the first trimester, we can ignore the remaining columns since they are empty
-    fourth_year = pd.read_csv(str(files_name[2]) + '.csv', skiprows=[1], usecols=[0, 1, 2])
+    fourth_year = pd.read_csv(str(files_name[3]) + '.csv', skiprows=[1], usecols=[0, 1, 2])
     fourth_year.columns = (['Dte.', 'Barris', '1r Trimestre 2017'])
 
     # we lose rows trying to merge everything, the problem shows up merging between 2015 and 2016
@@ -79,7 +79,7 @@ def comparison_data():
 
 # extract_evolution_data('average_rent')
 # extract_evolution_data('average_area')
-extract_evolution_data('average_rent_per_m2')
+# extract_evolution_data('average_rent_per_m2')
 # extract_evolution_data('number_contracts')
 
 # data = comparison_data()
