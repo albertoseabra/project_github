@@ -1,11 +1,12 @@
+import pandas as pd
+import os
+import csv
+
 def extract_evolution_data(file_name):
     """
     extracts the data for the four years(2014 until 2017), cleans, merges and saves for a csv file
     also returns the data set
     """
-
-    import pandas as pd
-    import os
 
     os.chdir('c:\\precourse\project\project_github\data')
     years = ['14', '15', '16', '17']
@@ -58,8 +59,6 @@ def extract_evolution_data(file_name):
 
 
 def comparison_data():
-    import pandas as pd
-    import os
 
     os.chdir('c:\\precourse\project\project_github\data')
 
@@ -82,12 +81,37 @@ def comparison_data():
 # extract_evolution_data('average_rent_per_m2')
 # extract_evolution_data('number_contracts')
 
+
+# the first function is not working for AVERAGE RENT, will just to it separately:
+first_year = pd.read_csv('average_rent_14.csv', encoding='latin1', na_values='n.d.', usecols=[0, 1, 2, 3, 4, 5])
+if first_year.columns[0] != 'Dte.':
+    first_year = pd.read_csv('average_rent_14.csv', encoding='latin1', skiprows=[0], na_values='n.d.', usecols=[0, 1, 2, 3, 4, 5])
+
+second_year = pd.read_csv('average_rent_15.csv', encoding='latin1', na_values='n.d.', usecols=[0, 1, 2, 3, 4, 5])
+if second_year.columns[0] != 'Dte.':
+    second_year = pd.read_csv('average_rent_15.csv', encoding='latin1', skiprows=[0], na_values='n.d.', usecols=[0, 1, 2, 3, 4, 5])
+
+third_year = pd.read_csv('average_rent_16.csv', na_values='n.d.', usecols=[0, 1, 2, 3, 4, 5])
+columns = (['Dte.', 'Barris', '1r Trimestre 2016', '2n Trimestre 2016', '3r Trimestre 2016', '4rt Trimestre 2016'])
+third_year.columns = columns
+
+fourth_year = pd.read_csv('average_rent_17.csv', usecols=[0, 1, 2])
+fourth_year.columns = (['Dte.', 'Barris', '1r Trimestre 2017'])
+
+second_year.drop(['Dte.', 'Barris'], axis=1, inplace=True)
+first_half = pd.concat([first_year, second_year], axis=1)
+second_half = third_year.merge(fourth_year)
+
+second_half.drop(['Dte.', 'Barris'], axis=1, inplace=True)
+final_data = pd.concat([first_half, second_half], axis=1)
+
+final_data.to_csv('average_rent.csv', encoding='latin1')
+
 # data = comparison_data()
 
 
 # MAKING THE COMPARISON DATA USING PYTHON READ_CSV
 def comparison_csv():
-    import csv
 
     data = []
     with open('average_area_17.csv', encoding='utf-8') as file:
