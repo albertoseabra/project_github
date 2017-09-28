@@ -23,6 +23,7 @@ columns = ['average_area', 'average_rent', 'average_rent_per_m2', 'number_contra
 legends = ['AVERAGE AREA', 'AVERAGE RENT', 'AVERAGE RENT PER M2', 'NUMBER OF NEW CONTRACTS']
 colors = ['RdPu', 'YlGn', 'OrRd', 'YlOrRd']
 
+# UNCOMMENT TO DRAW THE FOLIUM MAPS
 # for i in range(4):
 #     map = folium.Map(location=[41.41, 2.15], zoom_start=13)
 #
@@ -32,7 +33,31 @@ colors = ['RdPu', 'YlGn', 'OrRd', 'YlOrRd']
 #
 #     map.save(str(columns[i])+'.html')
 
-compare = sns.barplot(x='Barris', y='average_rent', data=data_file)
-for item in compare.get_xticklabels():
-    item.set_rotation(90)
+# UNCOMMENT TO DRAW COMPARISON BAR GRAPHS AND CHANGE THE "y='number_contracts'" AND "by='number_contracts'"
+# TO DRAW THE DIFFERENT GRAPHS
+# data_file.drop(['Unnamed: 0', 'Dte.'], inplace=True, axis=1)
+# compare = sns.barplot(x='Barris', y='number_contracts', palette='gist_rainbow',
+#                       data=data_file.sort_values(by='number_contracts', ascending=False))
+# for item in compare.get_xticklabels():
+#     item.set_rotation(90)
 
+
+
+
+
+
+
+# OTHER STUFF DONT LOOK :P
+'''
+data_file.drop(['Unnamed: 0', 'Dte.'], inplace=True, axis=1)
+sns.jointplot(x='average_rent_per_m2',y='average_rent', data=data_file)
+sns.jointplot(x='average_area',y='average_rent', data=data_file)
+
+
+sns.pairplot(data_file.dropna())
+sns.pairplot(data_file.dropna(), hue='Barris')
+
+cor = data_file.corr()
+sns.heatmap(cor, annot=True, cmap='coolwarm')
+
+'''
