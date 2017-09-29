@@ -11,7 +11,6 @@ def extract_evolution_data(file_name):
     also returns the data set
     """
 
-    os.chdir('c:\\precourse\project\project_github\data')
     years = ['14', '15', '16', '17']
     files_name = [str(file_name) + '_' + x for x in years]
 
@@ -62,8 +61,6 @@ def extract_evolution_data(file_name):
 
 
 def comparison_data():
-
-    os.chdir('c:\\precourse\project\project_github\data')
 
     average_area = pd.read_csv('average_area_17.csv', usecols=[0, 1, 2])
     average_rent = pd.read_csv('average_rent_17.csv', usecols=[2])
