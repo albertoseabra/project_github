@@ -33,15 +33,18 @@ colors = ['RdPu', 'YlGn', 'OrRd', 'YlOrRd']
 #
 #     map.save(str(columns[i])+'.html')
 
+
 # UNCOMMENT TO DRAW COMPARISON BAR GRAPHS AND CHANGE THE "y='number_contracts'" AND "by='number_contracts'"
 # TO DRAW THE DIFFERENT GRAPHS
-# data_file.drop(['Unnamed: 0', 'Dte.'], inplace=True, axis=1)
-# compare = sns.barplot(x='Barris', y='number_contracts', palette='gist_rainbow',
-#                       data=data_file.sort_values(by='number_contracts', ascending=False))
-# for item in compare.get_xticklabels():
-#     item.set_rotation(90)
+compare = sns.barplot(x='Barris', y='average_rent_per_m2', palette='gist_rainbow',
+                      data=data_file.sort_values(by='average_rent_per_m2', ascending=False))
+compare.axes.set_title('Average rent per M^2 - 1st Trimestre 2017', size=25, color='r')
+compare.set_ylabel('Rent per M^2', size=15)
+for item in compare.get_xticklabels():
+    item.set_rotation(90)
 
-
+plt.subplots_adjust(top=0.95, bottom=0.2, left=0.04, right=0.98)
+plt.show()
 
 
 # OTHER STUFF DONT LOOK :P
