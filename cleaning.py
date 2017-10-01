@@ -207,7 +207,7 @@ def comparison_data(save=False):
     # because it will be useful later will clean now the names of the barrios
     # will split the column with the names and discard the initial part example: "1. el Raval" <-- we want only the name
     # need to remove last column first, its not useful and gives us an index error
-    comparison = comparison.iloc[1:-1]
+    comparison = comparison.iloc[:-1]
     comparison['Barris'] = comparison['Barris'].apply(lambda x: str(x).split(' ', 1)[1])
 
     # will try to join the columns with the variation to this data set, if the files don't exist will return the
